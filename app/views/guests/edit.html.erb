@@ -1,0 +1,102 @@
+<!-- Validation failure messages -->
+<% if @guest.errors.any? %>
+  <% @guest.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Guest #<%= @guest.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <form action="/update_guest/<%= @guest.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
+
+      <!-- Label and input for name -->
+
+      <div class="form-group">
+        <label for="name" class="control-label">
+          Name
+        </label>
+
+
+        <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @guest.name %>">
+
+      </div>
+
+
+
+      <!-- Label and input for accesscode -->
+
+      <div class="form-group">
+        <label for="accesscode" class="control-label">
+          Accesscode
+        </label>
+
+
+        <input type="text" id="accesscode" name="accesscode" placeholder="Accesscode" class="form-control" value="<%= @guest.accesscode %>">
+
+      </div>
+
+
+
+      <!-- Label and input for entrycount -->
+
+      <div class="form-group">
+        <label for="entrycount" class="control-label">
+          Entrycount
+        </label>
+
+
+        <input type="text" id="entrycount" name="entrycount" placeholder="Entrycount" class="form-control" value="<%= @guest.entrycount %>">
+
+      </div>
+
+
+
+      <!-- Label and input for allowedcount -->
+
+      <div class="form-group">
+        <label for="allowedcount" class="control-label">
+          Allowedcount
+        </label>
+
+
+        <input type="text" id="allowedcount" name="allowedcount" placeholder="Allowedcount" class="form-control" value="<%= @guest.allowedcount %>">
+
+      </div>
+
+
+
+      <!-- Label and input for unrestricted -->
+
+      <div class="checkbox">
+        <label for="unrestricted">
+          <input type="checkbox" id="unrestricted" name="unrestricted" value="1" <%= "checked" if @guest.unrestricted %>>
+          Unrestricted
+        </label>
+      </div>
+
+
+
+      <button class="btn btn-warning">
+        Update Guest
+      </button>
+      or
+
+      <a href="/guests/<%= @guest.id %>">Cancel</a>
+
+
+    </form>
+
+  </div>
+</div>

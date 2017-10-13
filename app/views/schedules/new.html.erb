@@ -1,0 +1,89 @@
+<!-- Validation failure messages -->
+<% if @schedule.errors.any? %>
+  <% @schedule.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Schedule</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <form action="/create_schedule" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
+
+      <!-- Label and input for guest_id -->
+
+      <div class="form-group">
+        <label for="guest_id" class="control-label">
+          Guest
+        </label>
+
+
+        <input type="text" id="guest_id" name="guest_id" placeholder="Guest" class="form-control" value="<%= @schedule.guest_id %>">
+
+      </div>
+
+
+
+      <!-- Label and input for day -->
+
+      <div class="form-group">
+        <label for="day" class="control-label">
+          Day
+        </label>
+
+
+        <input type="text" id="day" name="day" placeholder="Day" class="form-control" value="<%= @schedule.day %>">
+
+      </div>
+
+
+
+      <!-- Label and input for start_time -->
+
+      <div class="form-group">
+        <label for="start_time" class="control-label">
+          Start time
+        </label>
+
+
+        <input type="text" id="start_time" name="start_time" placeholder="Start time" class="form-control" value="<%= @schedule.start_time %>">
+
+      </div>
+
+
+
+      <!-- Label and input for stop_time -->
+
+      <div class="form-group">
+        <label for="stop_time" class="control-label">
+          Stop time
+        </label>
+
+
+        <input type="text" id="stop_time" name="stop_time" placeholder="Stop time" class="form-control" value="<%= @schedule.stop_time %>">
+
+      </div>
+
+
+
+      <button class="btn btn-success">
+        Create Schedule
+      </button>
+      or
+      <a href="/schedules">Cancel</a>
+
+    </form>
+
+  </div>
+</div>
