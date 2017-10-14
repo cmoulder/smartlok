@@ -39,11 +39,11 @@
 
       <div class="form-group">
         <label for="accesscode" class="control-label">
-          Accesscode
+          Access Code
         </label>
 
 
-        <input type="text" id="accesscode" name="accesscode" placeholder="Accesscode" class="form-control" value="<%= @guest.accesscode %>">
+        <input type="text" id="accesscode" name="accesscode" placeholder="Accesscode" class="form-control" value="<%= rand(10000000..99999999) %>">
 
       </div>
 
@@ -52,12 +52,8 @@
       <!-- Label and input for entrycount -->
 
       <div class="form-group">
-        <label for="entrycount" class="control-label">
-          Entrycount
-        </label>
 
-
-        <input type="text" id="entrycount" name="entrycount" placeholder="Entrycount" class="form-control" value="<%= @guest.entrycount %>">
+        <input type="hidden" id="entrycount" name="entrycount" placeholder="Entrycount" class="form-control" value="0">
 
       </div>
 
@@ -67,11 +63,11 @@
 
       <div class="form-group">
         <label for="allowedcount" class="control-label">
-          Allowedcount
+          Number of Allowed Entries (0 for Unlimited)
         </label>
 
 
-        <input type="text" id="allowedcount" name="allowedcount" placeholder="Allowedcount" class="form-control" value="<%= @guest.allowedcount %>">
+        <input type="text" id="allowedcount" name="allowedcount" placeholder="Allowedcount" class="form-control" value="0">
 
       </div>
 
@@ -82,7 +78,7 @@
       <div class="checkbox">
         <label for="unrestricted">
           <input type="checkbox" id="unrestricted" name="unrestricted" value="1" <%= "checked" if @guest.unrestricted %>>
-          Unrestricted
+          Unrestricted Schedule (Must check box if not creating a schedule)
         </label>
       </div>
 

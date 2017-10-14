@@ -57,7 +57,7 @@
         </label>
 
 
-        <input type="text" id="start_time" name="start_time" placeholder="Start time" class="form-control" value="<%= @schedule.start_time %>">
+        <input type="text" id="start_time" name="start_time" placeholder="Start time" class="form-control" value="<%= @schedule.start_time.strftime("%I:%M %p") %>">
 
       </div>
 
@@ -71,7 +71,7 @@
         </label>
 
 
-        <input type="text" id="stop_time" name="stop_time" placeholder="Stop time" class="form-control" value="<%= @schedule.stop_time %>">
+        <input type="text" id="stop_time" name="stop_time" placeholder="Stop time" class="form-control" value="<%= @schedule.stop_time.strftime("%I:%M %p") %>">
 
       </div>
 

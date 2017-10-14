@@ -36,7 +36,7 @@ class GuestsController < ApplicationController
     save_status = @guest.save
 
     if save_status == true
-      redirect_to("/guests/#{@guest.id}", :notice => "Guest created successfully.")
+      redirect_to("/guests/#{@guest.id}/edit", :notice => "Guest created successfully.")
     else
       render("guests/new.html.erb")
     end
@@ -45,6 +45,7 @@ class GuestsController < ApplicationController
 
   def edit
     @guest = Guest.find(params[:id])
+    @schedules = @guest.schedules
 
     render("guests/edit.html.erb")
   end

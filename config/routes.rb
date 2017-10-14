@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   # READ
   get "/guests", :controller => "guests", :action => "index"
-  get "/guests/:id", :controller => "guests", :action => "show"
+  #get "/guests/:id", :controller => "guests", :action => "show"
 
   # UPDATE
   get "/guests/:id/edit", :controller => "guests", :action => "edit"

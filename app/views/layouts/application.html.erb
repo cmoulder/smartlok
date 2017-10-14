@@ -10,10 +10,22 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
   <style>
-    /* Only necessary if you are using navbar-fixed-top */
-    body {
-      padding-top: 60px;
-    }
+  /* Only necessary if you are using navbar-fixed-top */
+  body {
+    padding-top: 60px;
+  }
+
+  valgn-m {
+    vertical-align: middle;
+  }
+
+  .row {
+    border: thin red solid;
+  }
+
+  img, form, h1, h2, p {
+    border: thin green solid;
+  }
   </style>
 
   <%= stylesheet_link_tag    "application", :media => "all" %>
@@ -43,20 +55,21 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
 
-
-          <li><a href="/logs">Logs</a></li>
-
+          <% if current_user == nil%>
+          <% else %>
           <li><a href="/guests">Guests</a></li>
-
-          <li><a href="/schedules">Schedules</a></li>
-
-          <li><a href="/rails/info">Sitemap</a></li>
+          <li><a href="/logs">Logs</a></li>
+          <% end %>
 
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/users/edit">Dummy Edit Profile Link</a></li>
-          <li><a href="/users/sign_out" data-method="delete" rel="nofollow">Dummy Sign Out Link</a></li>
+          <% if current_user == nil%>
+          <li><a href="/users/sign_in" rel="nofollow">Sign In</a></li>
+          <% else %>
+          <li><a href="/users/edit">Manage Account</a></li>
+          <li><a href="/users/sign_out" data-method="delete" rel="nofollow"><i class="fa fa-fw fa-sign-out"></i> Sign Out</a></li>
+          <% end %>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div>
@@ -64,17 +77,17 @@
 
   <div class="container">
     <% if notice.present? %>
-      <div class="alert alert-dismissable alert-success">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <%= notice %>
-      </div>
+    <div class="alert alert-dismissable alert-success">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= notice %>
+    </div>
     <% end %>
 
     <% if alert.present? %>
-      <div class="alert alert-dismissable alert-warning">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <%= alert %>
-      </div>
+    <div class="alert alert-dismissable alert-warning">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= alert %>
+    </div>
     <% end %>
 
     <%= yield %>
