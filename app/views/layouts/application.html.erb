@@ -15,17 +15,13 @@
     padding-top: 60px;
   }
 
-  valgn-m {
-    vertical-align: middle;
-  }
-
-  .row {
+  /*.row {
     border: thin red solid;
   }
 
   img, form, h1, h2, p {
     border: thin green solid;
-  }
+  }*/
   </style>
 
   <%= stylesheet_link_tag    "application", :media => "all" %>
@@ -58,7 +54,7 @@
           <% if current_user == nil%>
           <% else %>
           <li><a href="/guests">Guests</a></li>
-          <li><a href="/logs">Logs</a></li>
+          <li><a href="/logs">Log</a></li>
           <% end %>
 
         </ul>

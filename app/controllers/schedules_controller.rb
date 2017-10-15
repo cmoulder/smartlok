@@ -34,9 +34,10 @@ class SchedulesController < ApplicationController
     save_status = @schedule.save
 
     if save_status == true
-      redirect_to("/schedules/#{@schedule.id}", :notice => "Schedule created successfully.")
+      # redirect_to(:back, :notice => "Schedule created successfully.")
+      redirect_to("/guests/#{params[:guest_id]}/edit", :notice => "Schedule created successfully.")
     else
-      render("schedules/new.html.erb")
+      redirect_to("/guests/#{params[:guest_id]}/edit", :alert => @schedule.errors.full_messages.join(', '))
     end
 
   end
@@ -73,13 +74,13 @@ class SchedulesController < ApplicationController
 
   def destroy
     @schedule = Schedule.find(params[:id])
-
+    gid = @schedule.guest_id
     @schedule.destroy
 
     if URI(request.referer).path == "/schedules/#{@schedule.id}"
       redirect_to("/", :notice => "Schedule deleted.")
     else
-      redirect_to(:back, :notice => "Schedule deleted.")
+      redirect_to("/guests/#{gid}/edit", :notice => "Schedule deleted.")
     end
   end
 end
