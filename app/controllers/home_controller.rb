@@ -20,7 +20,7 @@ class HomeController < ApplicationController
       @log.accesscode = params[:accesscode]
       @log.status = "Access Denied"
       @log.save
-      redirect_to("/home", :alert => "Error")
+      redirect_to("/home", :alert => "Access Denied")
     end
     # if save_status == true
     #   redirect_to("/logs/#{@log.id}", :notice => "Log created successfully.")

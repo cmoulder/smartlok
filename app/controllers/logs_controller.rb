@@ -65,9 +65,8 @@ class LogsController < ApplicationController
 
   def destroy
 
-    Log.destroy_all
-
+      Log.destroy_all
       redirect_to("/logs", :notice => "Log deleted.")
-      # redirect_to(:back, :notice => "Log deleted.")
+
   end
 end
