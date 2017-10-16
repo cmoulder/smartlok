@@ -25,11 +25,19 @@ class GuestsController < ApplicationController
 
     @guest.accesscode = params[:accesscode]
 
-    @guest.entrycount = params[:entrycount]
-
     @guest.allowedcount = params[:allowedcount]
 
-    @guest.unrestricted = params[:unrestricted]
+    if params[:unrestricted] == "on"
+      @guest.unrestricted = true
+    else
+      @guest.unrestricted = false
+    end
+
+    if params[:geo] == "on"
+      @guest.geo = true
+    else
+      @guest.geo = false
+    end
 
 
 
@@ -53,18 +61,23 @@ class GuestsController < ApplicationController
   def update
     @guest = Guest.find(params[:id])
 
-
     @guest.name = params[:name]
 
     @guest.accesscode = params[:accesscode]
 
-    @guest.entrycount = params[:entrycount]
-
     @guest.allowedcount = params[:allowedcount]
 
-    @guest.unrestricted = params[:unrestricted]
+    if params[:unrestricted] == "on"
+      @guest.unrestricted = true
+    else
+      @guest.unrestricted = false
+    end
 
-
+    if params[:geo] == "on"
+      @guest.geo = true
+    else
+      @guest.geo = false
+    end
 
     save_status = @guest.save
 

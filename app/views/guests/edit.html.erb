@@ -39,7 +39,7 @@
 
       <div class="form-group">
         <label for="accesscode" class="control-label">
-          Accesscode
+          Access Code
         </label>
 
 
@@ -48,30 +48,25 @@
       </div>
 
 
+      <!-- Label and input for allowedcount -->
+
+      <div class="form-group">
+        <label for="allowedcount" class="control-label">
+          Number of Allowed Entries (0 for Unlimited)
+        </label>
+
+
+        <input type="text" id="allowedcount" name="allowedcount" placeholder="Allowedcount" class="form-control" value="<%= @guest.allowedcount %>">
+
+      </div>
 
       <!-- Label and input for entrycount -->
 
       <div class="form-group">
         <label for="entrycount" class="control-label">
-          Entrycount
+          Entry Count:
         </label>
-
-
-        <input type="text" id="entrycount" name="entrycount" placeholder="Entrycount" class="form-control" value="<%= @guest.entrycount %>">
-
-      </div>
-
-
-
-      <!-- Label and input for allowedcount -->
-
-      <div class="form-group">
-        <label for="allowedcount" class="control-label">
-          Allowedcount
-        </label>
-
-
-        <input type="text" id="allowedcount" name="allowedcount" placeholder="Allowedcount" class="form-control" value="<%= @guest.allowedcount %>">
+      <%=   Log.where(:accesscode => Guest.find(@guest.id).accesscode).count %>
 
       </div>
 
@@ -81,8 +76,17 @@
 
       <div class="checkbox">
         <label for="unrestricted">
-          <input type="checkbox" id="unrestricted" name="unrestricted" value="1" <%= "checked" if @guest.unrestricted %>>
+          <input type="checkbox" id="unrestricted" name="unrestricted" <%= "checked" if @guest.unrestricted %>>
           Unrestricted Schedule (Must check box if not creating a schedule)
+        </label>
+      </div>
+
+<!-- Label and input for geofencing -->
+
+      <div class="checkbox">
+        <label for="geo">
+          <input type="checkbox" id="geo" name="geo" <%= "checked" if @guest.geo %>>
+          Geofencing
         </label>
       </div>
 
@@ -203,9 +207,7 @@
 
         <td>
 
-          <a href="/schedules/<%= schedule.id %>/edit" class="btn btn-info">Edit</a>
           <a href="/delete_schedule/<%= schedule.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
-
 
         </td>
       </tr>

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post "/update_log/:id", :controller => "logs", :action => "update"
 
   # DELETE
-  get "/delete_log/:id", :controller => "logs", :action => "destroy"
+  get "/delete_log", :controller => "logs", :action => "destroy"
   #------------------------------
 
   # Routes for the Guest resource:

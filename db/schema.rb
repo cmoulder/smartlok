@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013115245) do
+ActiveRecord::Schema.define(version: 20171016153836) do
 
-  create_table "guests", force: :cascade do |t|
+  create_table "Guests", force: :cascade do |t|
     t.string   "name"
     t.integer  "accesscode"
-    t.integer  "entrycount"
     t.integer  "allowedcount"
     t.boolean  "unrestricted"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.boolean  "geo"
   end
 
   create_table "logs", force: :cascade do |t|
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20171013115245) do
     t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "schedules", force: :cascade do |t|

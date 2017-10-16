@@ -64,14 +64,10 @@ class LogsController < ApplicationController
   end
 
   def destroy
-    @log = Log.find(params[:id])
 
-    @log.destroy
+    Log.destroy_all
 
-    if URI(request.referer).path == "/logs/#{@log.id}"
-      redirect_to("/", :notice => "Log deleted.")
-    else
-      redirect_to(:back, :notice => "Log deleted.")
-    end
+      redirect_to("/logs", :notice => "Log deleted.")
+      # redirect_to(:back, :notice => "Log deleted.")
   end
 end

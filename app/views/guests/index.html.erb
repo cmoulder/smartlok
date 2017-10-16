@@ -14,13 +14,13 @@
 
         <th>Name</th>
 
-        <th>Accesscode</th>
+        <th>Entries</th>
 
-        <th>Entrycount</th>
+        <th>Allowed Entries</th>
 
-        <th>Allowedcount</th>
+        <th>Unrestricted Schedule</th>
 
-        <th>Unrestricted</th>
+        <th>Geofencing</th>
 
         <th>Actions</th>
       </tr>
@@ -30,13 +30,13 @@
 
         <td><%= guest.name %></td>
 
-        <td><%= guest.accesscode %></td>
-
-        <td><%= guest.entrycount %></td>
+        <td><%= Log.where(:accesscode => Guest.find(guest.id).accesscode).count %></td>
 
         <td><%= guest.allowedcount %></td>
 
         <td><%= guest.unrestricted %></td>
+
+        <td><%= guest.geo %></td>
 
         <td>
 

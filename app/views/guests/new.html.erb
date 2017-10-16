@@ -1,11 +1,11 @@
 <!-- Validation failure messages -->
 <% if @guest.errors.any? %>
-  <% @guest.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
+<% @guest.errors.full_messages.each do |message| %>
+<div class="alert alert-dismissable alert-danger">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <%= message %>
+</div>
+<% end %>
 <% end %>
 
 <div class="page-header">
@@ -47,18 +47,6 @@
 
       </div>
 
-
-
-      <!-- Label and input for entrycount -->
-
-      <div class="form-group">
-
-        <input type="hidden" id="entrycount" name="entrycount" placeholder="Entrycount" class="form-control" value="0">
-
-      </div>
-
-
-
       <!-- Label and input for allowedcount -->
 
       <div class="form-group">
@@ -77,12 +65,19 @@
 
       <div class="checkbox">
         <label for="unrestricted">
-          <input type="checkbox" id="unrestricted" name="unrestricted" value="1" <%= "checked" if @guest.unrestricted %>>
+          <input type="checkbox" id="unrestricted" name="unrestricted" <%= "checked" if @guest.unrestricted %>>
           Unrestricted Schedule (Must check box if not creating a schedule)
         </label>
       </div>
 
+      <!-- Label and input for geofencing -->
 
+      <div class="checkbox">
+        <label for="geo">
+          <input type="checkbox" id="geo" name="geo" <%= "checked" if @guest.geo %>>
+          Geofencing
+        </label>
+      </div>
 
       <button class="btn btn-success">
         Create Guest
