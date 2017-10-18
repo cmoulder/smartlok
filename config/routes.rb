@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  # Routes for the Unlock resource:
+
+  # UPDATE
+  get "/aunlock", :controller => "unlock", :action => "adminunlock"
+
+  #------------------------------
+
+
+  # Routes for the Setting resource:
+
+  # UPDATE
+  get "/settings", :controller => "settings", :action => "edit"
+  post "/update_setting", :controller => "settings", :action => "update"
+
+  #------------------------------
+
   devise_for :users
   # Routes for the Log resource:
   # CREATE

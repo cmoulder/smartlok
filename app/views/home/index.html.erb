@@ -1,12 +1,33 @@
+<script>
+var x
+
+getLocation()
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+    }
+}
+
+function showPosition(position) {
+    document.getElementById("lat").value = position.coords.latitude;
+    document.getElementById("lon").value = position.coords.longitude;
+    document.getElementById("loc").style.color="rgb(92, 184, 92)";
+ }
+</script>
+
+
 <div class="page-header">
   <h1>
-    Unit XXXX Access
+    <%= Setting.find(1).title %>
   </h1>
 </div>
 
 <div class="row">
   <div class="col-md-12">
     <table class="table table-striped table-hover">
+
       <form action="/home" method="post">
         <!-- Hidden input for authenticity token to protect from forgery -->
         <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
@@ -17,7 +38,24 @@
                 <h4>Enter your access code</h4>
               </label>
 
-              <input type="type" inputmode="numeric" id="accesscode" name="accesscode" placeholder="Double check before submitting" class="form-control">
+              <div class="input-group">
+              <input type="text" inputmode="numeric" id="accesscode" name="accesscode" placeholder="Double check before submitting" class="form-control">
+              <span class = "input-group-addon">
+                <i class="fa fa-globe fa-2x badloc" id="loc"></i>
+                </span>
+              </div>
+
+
+
+              <label for="lat" class="control-label">
+              </label>
+
+              <input type="hidden" inputmode="numeric" id="lat" name="lat" value="0" class="form-control">
+
+              <label for="lon" class="control-label">
+              </label>
+
+              <input type="hidden" inputmode="numeric" id="lon" name="lon" value="0" class="form-control">
             </div>
             <button class="btn btn-success">
               Open Door

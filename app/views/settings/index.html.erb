@@ -1,0 +1,89 @@
+<!-- Validation failure messages -->
+<% if @setting.errors.any? %>
+<% @setting.errors.full_messages.each do |message| %>
+<div class="alert alert-dismissable alert-danger">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <%= message %>
+</div>
+<% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Settings</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <!-- Label and input for title -->
+
+
+
+    <form action="/update_setting" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+          <u>General Settings</u>
+      <div class="form-group">
+        <label for="title" class="control-label">
+          Unlock Screen Title
+        </label>
+
+
+        <input type="text" id="title" name="title" placeholder="Title" class="form-control" value="<%= @setting.title %>">
+
+      </div>
+
+      <u>Geofencing Settings</u>
+      <!-- Label and input for lat -->
+
+      <div class="form-group">
+        <label for="lat" class="control-label">
+          Home Latitude (eg 25.1971482)
+        </label>
+
+
+        <input type="text" id="lat" name="lat" placeholder="Lat" class="form-control" value="<%= @setting.lat %>">
+
+      </div>
+
+
+
+      <!-- Label and input for lon -->
+
+      <div class="form-group">
+        <label for="lon" class="control-label">
+          Home Longitude (eg 55.2743221)
+        </label>
+
+
+        <input type="text" id="lon" name="lon" placeholder="Lon" class="form-control" value="<%= @setting.lon %>">
+
+      </div>
+
+
+
+      <!-- Label and input for radius -->
+
+      <div class="form-group">
+        <label for="radius" class="control-label">
+          Maximum Unlock Distance (ft) - How far a guest can be from the home location.
+        </label>
+
+
+        <input type="text" id="radius" name="radius" placeholder="Radius" class="form-control" value="<%= @setting.radius.to_i %>">
+
+      </div>
+
+
+      <button class="btn btn-warning">
+        Update Settings
+      </button>
+      or
+
+      <a href="/settings/<%= @setting.id %>">Cancel</a>
+
+
+    </form>
+
+  </div>
+</div>
