@@ -10,8 +10,48 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, :keys => [:username, :email, :password, :password_confirmation])
   end
 
-def unlock
+  def unlock
 
-end
+  end
+
+  # function to write log entries
+  def newlog(name, accesscode, status)
+    @log = Log.new
+    @log.name = name
+    @log.accesscode = accesscode
+    @log.status = status
+    @log.gid = Guest.where(:name => name).first.try(:id)
+    @log.save
+  end
+
+  # Radians per degree
+  def rpd(num)
+    return num * Math::PI / 180
+  end
+
+  #Haversine formula to give distance between two points in feet
+  def distance(userlat, userlon, homelat, homelon)
+    dlon = homelon - userlon
+    dlat = homelat - userlat
+    a = (Math.sin(rpd(dlat)/2))**2 + Math.cos(rpd(userlat)) * Math.cos((rpd(homelat))) * (Math.sin(rpd(dlon)/2))**2
+    c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a)) * 3956 * 5280
+    return c
+  end
+
+  #check guests schedule and return true if in alloted time.
+  def schedule(guest)
+    currentday = Time.now.strftime("%A")
+    currenttime = Time.now.strftime("%H:%M:%S")
+
+    goodtogo = false
+
+    guest.schedules.each do |schentry|
+      if schentry.day == currentday && schentry.start_time.strftime("%H:%M:%S") < currenttime && schentry.stop_time.strftime("%H:%M:%S") > currenttime
+        goodtogo = true
+      end
+    end
+
+    return goodtogo
+  end
 
 end

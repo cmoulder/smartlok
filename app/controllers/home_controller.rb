@@ -7,38 +7,40 @@ class HomeController < ApplicationController
   end
 
   def open
-    # Radians per degree
-    def self.rpd(num)
-      num * Math::PI / 180
-    end
 
-    #Haversine formula to give distance between two points in feet
-    def distance(userlat, userlon, homelat, homelon)
-      dlon = homelon - userlon
-      dlat = homelat - userlat
-      a = (Math.sin(rpd(dlat)/2))**2 + Math.cos(rpd(userlat)) * Math.cos((rpd(homelat))) * (Math.sin(rpd(dlon)/2))**2
-      c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a)) * 3956 * 5280
-      return c
-    end
+    userlat = params[:lat].to_f
+    userlon = params[:lon].to_f
+    userkey = params[:accesscode].to_i
+    setting = Setting.first
 
-    dist = distance(params[:lat].to_f, params[:lon].to_f, Setting.find(1).lat, Setting.find(1).lon)
+    #anti brute force
+    #check key
+    guest = Guest.where(:accesscode => userkey).first
 
-    if Guest.where(:accesscode => params[:accesscode].to_i).count > 0
-      @log = Log.new
-      @log.name = Guest.where(:accesscode => 123).pluck(:name)[0]
-      @log.accesscode = params[:accesscode]
-      @log.status = "Access Granted"
-      @log.save
-      redirect_to("/home", :notice => "Access Granted")
+    if guest != nil
+      #check access count
+      if guest.allowedcount == 0 || Log.where(:gid => guest.id).count < guest.allowedcount
+        #check location
+        if guest.geo == false || distance(userlat, userlon, setting.lat, setting.lon) < setting.radius
+          if guest.unrestricted == true || schedule(guest)
+            newlog(guest.name,userkey,"Access Granted")
+            unlock()
+            redirect_to("/home", :notice => "Access Granted")
+          else
+            newlog(guest.name,userkey,"Outside Schedule")
+            redirect_to("/home", :alert => "Access Denied. You are outside the designated schedule.")
+          end
+        else
+          newlog(guest.name,userkey,"Invalid Location")
+          redirect_to("/home", :alert => "Access Denied. You must allow location access and be near the lock.")
+        end
+      else
+        newlog(guest.name,userkey,"No More Entries")
+        redirect_to("/home", :alert => "Access Denied. No More Entries Allowed.")
+      end
     else
-      @log = Log.new
-      @log.name = "N/A"
-      @log.accesscode = params[:accesscode]
-      @log.status = "Access Denied"
-      @log.save
+      newlog("N/A",userkey,"Access Denied")
       redirect_to("/home", :alert => "Access Denied")
     end
-
   end
-
 end

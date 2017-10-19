@@ -14,11 +14,15 @@
 
         <th>Name</th>
 
+        <th>User ID</th>
+
         <th>Access Code</th>
 
         <th>Time</th>
 
         <th>Status</th>
+
+
 
       </tr>
 
@@ -27,11 +31,16 @@
 
         <td><%= log.name %></td>
 
+        <td><a href=/guests/<%= log.gid %>/edit><%= log.gid %></a></td>
+
         <td><%= log.accesscode %></td>
 
         <td><%= log.created_at %></td>
 
         <td><%= log.status %></td>
+
+
+
 
       </tr>
       <% end %>

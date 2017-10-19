@@ -30,7 +30,7 @@
 
         <td><%= guest.name %></td>
 
-        <td><%= Log.where(:accesscode => Guest.find(guest.id).accesscode).count %></td>
+        <td><%= Log.where(:gid => guest.id, :status => "Access Granted").count %></td>
 
         <td><%= guest.allowedcount %></td>
 

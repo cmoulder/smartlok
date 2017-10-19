@@ -33,6 +33,16 @@
 
       </div>
 
+      <!-- Label and input for unique user id -->
+      <div class="form-group">
+        <label for="gid" class="control-label">
+          Unique User ID (Cannot change)
+        </label>
+
+        <input type="text" id="gid" name="gid" class="form-control" placeholder="<%= @guest.id %>">
+
+      </div>
+
 
 
       <!-- Label and input for accesscode -->
@@ -66,7 +76,7 @@
         <label for="entrycount" class="control-label">
           Entry Count:
         </label>
-      <%=   Log.where(:accesscode => Guest.find(@guest.id).accesscode).count %>
+        <%=   Log.where(:gid => @guest.id, :status => "Access Granted").count %>
 
       </div>
 
@@ -81,7 +91,7 @@
         </label>
       </div>
 
-<!-- Label and input for geofencing -->
+      <!-- Label and input for geofencing -->
 
       <div class="checkbox">
         <label for="geo">

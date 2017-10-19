@@ -1,12 +1,8 @@
 class UnlockController < ApplicationController
 
   def adminunlock
-
-    @log = Log.new
-    @log.name = "Admin"
-    @log.accesscode = 1337
-    @log.status = "Access Granted"
-    @log.save
+    newlog("Admin",1337,"Access Granted")
+    unlock()
     redirect_to("/home", :notice => "Access Granted")
 
   end
