@@ -9,7 +9,12 @@
 <% end %>
 
 <div class="page-header">
-  <h3>Edit <%= @guest.name %></h3>
+  <h1>
+    Edit <%= @guest.name %>
+
+    <a href="/send_email/<%= @guest.id %>" class="btn btn-lg btn-warning" style="float:right">Send Email</a>
+
+  </h1>
 </div>
 
 <div class="row">
@@ -40,6 +45,15 @@
         </label>
 
         <input type="text" id="gid" name="gid" class="form-control" placeholder="<%= @guest.id %>">
+
+      </div>
+
+      <div class="form-group">
+        <label for="name" class="control-label">
+          Email
+        </label>
+
+        <input type="text" id="email" name="email" placeholder="Email" class="form-control" value="<%= @guest.email %>">
 
       </div>
 

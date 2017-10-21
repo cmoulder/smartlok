@@ -5,6 +5,11 @@ class GuestsController < ApplicationController
     render("guests/index.html.erb")
   end
 
+  def send_email
+    @guest = Guest.find(params[:id])
+    UserMailer.access_granted(@guest, Setting.first).deliver_later
+  end
+
   def show
     @guest = Guest.find(params[:id])
 
@@ -22,6 +27,8 @@ class GuestsController < ApplicationController
 
 
     @guest.name = params[:name]
+
+    @guest.email = params[:email]
 
     @guest.accesscode = params[:accesscode]
 
@@ -62,6 +69,8 @@ class GuestsController < ApplicationController
     @guest = Guest.find(params[:id])
 
     @guest.name = params[:name]
+
+    @guest.email = params[:email]
 
     @guest.accesscode = params[:accesscode]
 

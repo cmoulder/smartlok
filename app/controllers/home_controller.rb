@@ -13,34 +13,39 @@ class HomeController < ApplicationController
     userkey = params[:accesscode].to_i
     setting = Setting.first
 
-    #anti brute force
-    #check key
     guest = Guest.where(:accesscode => userkey).first
+    #anti brute force
+    if  Log.last(5).pluck(:status).any? {|item| "Access Granted".include? item}
+      #check key
 
-    if guest != nil
-      #check access count
-      if guest.allowedcount == 0 || Log.where(:gid => guest.id).count < guest.allowedcount
-        #check location
-        if guest.geo == false || distance(userlat, userlon, setting.lat, setting.lon) < setting.radius
-          if guest.unrestricted == true || schedule(guest)
-            newlog(guest.name,userkey,"Access Granted")
-            unlock()
-            redirect_to("/home", :notice => "Access Granted")
+      if guest != nil
+        #check access count
+        if guest.allowedcount == 0 || Log.where(:gid => guest.id, :status => "Access Granted").count < guest.allowedcount
+          #check location
+          if guest.geo == false || distance(userlat, userlon, setting.lat, setting.lon) < setting.radius
+            if guest.unrestricted == true || schedule(guest)
+              newlog(guest.name,userkey,"Access Granted")
+              unlock()
+              redirect_to("/home", :notice => "Access Granted")
+            else
+              newlog(guest.name,userkey,"Outside Schedule")
+              redirect_to("/home", :alert => "Access Denied. You are outside the designated schedule.")
+            end
           else
-            newlog(guest.name,userkey,"Outside Schedule")
-            redirect_to("/home", :alert => "Access Denied. You are outside the designated schedule.")
+            newlog(guest.name,userkey,"Invalid Location")
+            redirect_to("/home", :alert => "Access Denied. You must allow location access and be near the lock.")
           end
         else
-          newlog(guest.name,userkey,"Invalid Location")
-          redirect_to("/home", :alert => "Access Denied. You must allow location access and be near the lock.")
+          newlog(guest.name,userkey,"No More Entries")
+          redirect_to("/home", :alert => "Access Denied. No More Entries Allowed.")
         end
       else
-        newlog(guest.name,userkey,"No More Entries")
-        redirect_to("/home", :alert => "Access Denied. No More Entries Allowed.")
+        newlog("N/A",userkey,"Access Denied")
+        redirect_to("/home", :alert => "Access Denied")
       end
     else
-      newlog("N/A",userkey,"Access Denied")
-      redirect_to("/home", :alert => "Access Denied")
+      newlog(guest.name,userkey,"System Locked")
+      redirect_to("/home", :alert => "Access Denied. System Locked. Too many bad attempts.")
     end
   end
 end

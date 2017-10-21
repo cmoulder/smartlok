@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    Welcome <%= @guest.name.titleize %>,
+    <p>
+      You have been granted access to <%= @setting.title %>.
+<br>
+      Your access code is: <%= @guest.accesscode %>.<br>
+    </p>
+    <p>
+      To enter, just follow this link: <a href="www.google.com">www.google.com</a> and enter your code.
+    </p>
+
+<b>Restrictions:</b>
+<br>
+<% if @guest.geo == true %>
+You must enable location access on your phone. Please wait for the orange globe icon to turn green.
+<br>
+<% end %>
+
+<% if @guest.allowedcount != 0 %>
+You are only allowed <%= @guest.allowedcount %> entries.
+<br>
+<% end %>
+
+<% if @guest.unrestricted == false %>
+Allowed entry times:
+<br>
+    <table>
+
+          <tr>
+            <th>Day</th>
+
+            <th>Start time</th>
+
+            <th>Stop time</th>
+
+          </tr>
+
+
+          <% @guest.schedules.each do |schedule| %>
+          <tr>
+
+            <td><%= schedule.day %></td>
+
+            <td><%= schedule.start_time.strftime("%I:%M %p") %></td>
+
+            <td><%= schedule.stop_time.strftime("%I:%M %p") %></td>
+
+          </tr>
+          <% end %>
+        </table>
+<% end %>
+  </body>
+</html>

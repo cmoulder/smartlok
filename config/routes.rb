@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   #------------------------------
 
   # Routes for the Guest resource:
+  #SEND EMAIL
+  get "/send_email/:id", :controller => "guests", :action => "send_email"
   # CREATE
   get "/guests/new", :controller => "guests", :action => "new"
   post "/create_guest", :controller => "guests", :action => "create"
