@@ -7,7 +7,11 @@ class GuestsController < ApplicationController
 
   def send_email
     @guest = Guest.find(params[:id])
-    UserMailer.access_granted(@guest, Setting.first).deliver_later
+    @setting = Setting.first
+    #could use deliver_later, but this seems like false advertising if we haven't tried sending yet.
+    UserMailer.access_granted(@guest, @setting).deliver_now!
+
+    redirect_to("/guests/#{@guest.id}/edit", :notice => "Message Sent.")
   end
 
   def show
@@ -25,6 +29,12 @@ class GuestsController < ApplicationController
   def create
     @guest = Guest.new
 
+    tempdate=params[:expire].to_s
+    if tempdate == ''
+      @guest.expire = nil
+    else
+      @guest.expire = tempdate[3,2]+'/'+tempdate[0,2]+'/'+tempdate[6,4]
+    end
 
     @guest.name = params[:name]
 
@@ -33,6 +43,12 @@ class GuestsController < ApplicationController
     @guest.accesscode = params[:accesscode]
 
     @guest.allowedcount = params[:allowedcount]
+
+    if params[:notify] == "on"
+      @guest.notify = true
+    else
+      @guest.notify = false
+    end
 
     if params[:unrestricted] == "on"
       @guest.unrestricted = true
@@ -59,6 +75,7 @@ class GuestsController < ApplicationController
   end
 
   def edit
+    @SORT_ORDER = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     @guest = Guest.find(params[:id])
     @schedules = @guest.schedules
 
@@ -68,6 +85,12 @@ class GuestsController < ApplicationController
   def update
     @guest = Guest.find(params[:id])
 
+    tempdate = params[:expire].to_s
+    if tempdate == ''
+      @guest.expire = nil
+    else
+      @guest.expire = tempdate[3,2]+'/'+tempdate[0,2]+'/'+tempdate[6,4]
+    end
     @guest.name = params[:name]
 
     @guest.email = params[:email]
@@ -75,6 +98,12 @@ class GuestsController < ApplicationController
     @guest.accesscode = params[:accesscode]
 
     @guest.allowedcount = params[:allowedcount]
+
+    if params[:notify] == "on"
+      @guest.notify = true
+    else
+      @guest.notify = false
+    end
 
     if params[:unrestricted] == "on"
       @guest.unrestricted = true

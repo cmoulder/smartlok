@@ -178,6 +178,7 @@ DEPENDENCIES
   devise
   jbuilder (~> 2.5)
   jquery-rails
+  mail
   puma (~> 3.0)
   rails (~> 5.0.3)
   sass-rails (~> 5.0)

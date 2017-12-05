@@ -8,6 +8,9 @@
 <% end %>
 <% end %>
 
+<script src="/assets/javascripts/application-dc28a5c849651bd0aa634d3d5f9dd7d212f3297cb3f063df69216417e53f2317.js"></script>
+<link rel="stylesheet" media="all" href="/assets/stylesheets/application-72d719150b6d66de8e32fd565c30b18e6107e628b66642641e32bede1b490107.css" />
+
 <div class="page-header">
   <h3>Add Guest</h3>
 </div>
@@ -70,6 +73,41 @@
       </div>
 
 
+<!-- Expiry Date -->
+
+<div class="row">
+  <div class='col-sm-12'>
+    <div class="form-group">
+      <label for="allowedcount" class="control-label">
+        Access Expiration Date (Leave blank for never)
+      </label>
+      <div class='input-group date' id='datetimepicker'>
+        <input type='text' class="form-control" id="expire" name="expire">
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  $(function () {
+    $('#datetimepicker').datetimepicker({
+      format: 'L'
+
+    });
+  });
+  </script>
+</div>
+
+
+<!-- Label and input for notify -->
+
+<div class="checkbox">
+  <label for="notify">
+    <input type="checkbox" id="notify" name="notify" <%= "checked" if @guest.notify %>>
+    Email Admin When Access Attempted
+  </label>
+</div>
 
       <!-- Label and input for unrestricted -->
 

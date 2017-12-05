@@ -1,58 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    Welcome <%= @guest.name.titleize %>,
-    <p>
-      You have been granted access to <%= @setting.title %>.
-<br>
-      Your access code is: <%= @guest.accesscode %>.<br>
-    </p>
-    <p>
-      To enter, just follow this link: <a href="www.google.com">www.google.com</a> and enter your code.
-    </p>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <%= @guest.name.titleize %>,
+  <br>
+  <br>
+  You have been granted access to <%= @setting.title %>.
+  <br>
+  <br>
+  Your access code is: <%= @guest.accesscode %>.
+  <br>
+  <br>
+  To enter, follow this link: <a href="www.arachnid.ddns.net:7909">www.arachnid.ddns.net:7909</a> and enter your code. Please verify you can access the site before arriving.
+  <br>
+  <br>
+  -The Moulders
+  <br>
+  <br>
 
-<b>Restrictions:</b>
-<br>
-<% if @guest.geo == true %>
-You must enable location access on your phone. Please wait for the orange globe icon to turn green.
-<br>
-<% end %>
+  <b>Restrictions:</b>
+  <br>
 
-<% if @guest.allowedcount != 0 %>
-You are only allowed <%= @guest.allowedcount %> entries.
-<br>
-<% end %>
+  <% if @guest.expire != nil %>
+  Your access expires on <%= @guest.expire.to_formatted_s(:long_ordinal) %>.
+  <br>
+  <% end %>
 
-<% if @guest.unrestricted == false %>
-Allowed entry times:
-<br>
-    <table>
+  <% if @guest.geo == true %>
+  You must enable location access on your phone. Please wait for the orange globe icon to turn green.
+  <br>
+  <% end %>
 
-          <tr>
-            <th>Day</th>
+  <% if @guest.allowedcount != 0 %>
+  You are only allowed <%= @guest.allowedcount %> entries.
+  <br>
+  <% end %>
 
-            <th>Start time</th>
+  <% if @guest.unrestricted == false %>
+  Allowed entry times:
+  <br>
+  <table>
 
-            <th>Stop time</th>
+    <tr>
+      <th>Day</th>
 
-          </tr>
+      <th>Start time</th>
+
+      <th>Stop time</th>
+
+    </tr>
 
 
-          <% @guest.schedules.each do |schedule| %>
-          <tr>
+    <% @guest.schedules.sort_by{|e| [@SORT_ORDER.index(e[:day]), e[:start_time].to_f]}.each do |schedule| %>
+    <tr>
 
-            <td><%= schedule.day %></td>
+      <td><%= schedule.day %></td>
 
-            <td><%= schedule.start_time.strftime("%I:%M %p") %></td>
+      <td><%= schedule.start_time.strftime("%I:%M %p") %></td>
 
-            <td><%= schedule.stop_time.strftime("%I:%M %p") %></td>
+      <td><%= schedule.stop_time.strftime("%I:%M %p") %></td>
 
-          </tr>
-          <% end %>
-        </table>
-<% end %>
-  </body>
+    </tr>
+    <% end %>
+  </table>
+  <% end %>
+
+  <br>
+  Please do not reply to this message. The mailbox is unmonitored.
+</body>
 </html>

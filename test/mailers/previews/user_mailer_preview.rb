@@ -3,4 +3,7 @@ class UserMailerPreview < ActionMailer::Preview
   def access_granted
     UserMailer.access_granted(Guest.first, Setting.first)
   end
+  def notify
+    UserMailer.notify(Guest.first, User.first, Setting.first)
+  end
 end

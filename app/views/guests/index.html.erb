@@ -16,11 +16,7 @@
 
         <th>Entries</th>
 
-        <th>Allowed Entries</th>
-
-        <th>Unrestricted Schedule</th>
-
-        <th>Geofencing</th>
+        <th>Last Entry</th>
 
         <th>Actions</th>
       </tr>
@@ -32,11 +28,8 @@
 
         <td><%= Log.where(:gid => guest.id, :status => "Access Granted").count %></td>
 
-        <td><%= guest.allowedcount %></td>
+        <td><%= Log.where(:gid => guest.id, :status => "Access Granted").last.try(:created_at) %></td>
 
-        <td><%= guest.unrestricted %></td>
-
-        <td><%= guest.geo %></td>
 
         <td>
 

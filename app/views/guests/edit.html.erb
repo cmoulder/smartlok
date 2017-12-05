@@ -12,7 +12,11 @@
   <h1>
     Edit <%= @guest.name %>
 
+    <% if @guest.email != nil%>
     <a href="/send_email/<%= @guest.id %>" class="btn btn-lg btn-warning" style="float:right">Send Email</a>
+    <% else %>
+    <a href="#" class="btn btn-lg btn-default" style="float:right">Send Email</a>
+    <% end %>
 
   </h1>
 </div>
@@ -76,7 +80,7 @@
 
       <div class="form-group">
         <label for="allowedcount" class="control-label">
-          Number of Allowed Entries (0 for Unlimited)
+          Number of Allowed Entries (0 for Unlimited). Current entry count is <%=   Log.where(:gid => @guest.id, :status => "Access Granted").count %>.
         </label>
 
 
@@ -84,17 +88,41 @@
 
       </div>
 
-      <!-- Label and input for entrycount -->
+      <!-- Expiry Date -->
 
-      <div class="form-group">
-        <label for="entrycount" class="control-label">
-          Entry Count:
-        </label>
-        <%=   Log.where(:gid => @guest.id, :status => "Access Granted").count %>
+      <div class="row">
+        <div class='col-sm-12'>
+          <div class="form-group">
+            <label for="allowedcount" class="control-label">
+              Access Expiration Date (Leave blank for never)
+            </label>
+            <div class='input-group date' id='datetimepicker'>
+              <input type='text' class="form-control" id="expire" name="expire">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+        $(function () {
+          $('#datetimepicker').datetimepicker({
+            format: 'L',
+            defaultDate: '<%= @guest.expire %>'
 
+          });
+        });
+        </script>
       </div>
 
+      <!-- Label and input for notify -->
 
+      <div class="checkbox">
+        <label for="notify">
+          <input type="checkbox" id="notify" name="notify" <%= "checked" if @guest.notify %>>
+          Email Admin When Access Attempted
+        </label>
+      </div>
 
       <!-- Label and input for unrestricted -->
 
@@ -220,7 +248,8 @@
 
 
       </tr>
-      <% @schedules.each do |schedule| %>
+
+      <% @schedules.sort_by{|e| [@SORT_ORDER.index(e[:day]), e[:start_time].to_f]}.each do |schedule| %>
       <tr>
 
         <td><%= schedule.day %></td>

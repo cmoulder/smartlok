@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171021115908) do
+ActiveRecord::Schema.define(version: 20171101055152) do
 
   create_table "Guests", force: :cascade do |t|
     t.string   "name"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20171021115908) do
     t.datetime "updated_at",   null: false
     t.boolean  "geo"
     t.string   "email"
+    t.date     "expire"
+    t.boolean  "notify"
   end
 
   create_table "logs", force: :cascade do |t|
