@@ -8,6 +8,7 @@ end
 gem "starter_generators", :git => "https://github.com/raghubetina/starter_generators"
 gem 'devise'
 gem 'bcrypt', platforms: :ruby
+# gem 'rpi_gpio'
 
 gem 'mail'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

@@ -6,8 +6,6 @@ class CreateGuests < ActiveRecord::Migration[5.0]
 
       t.integer :accesscode
 
-      t.integer :entrycount
-
       t.integer :allowedcount
 
       t.boolean :unrestricted

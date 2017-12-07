@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20171101055152) do
 
-  create_table "Guests", force: :cascade do |t|
+  create_table "guests", force: :cascade do |t|
     t.string   "name"
     t.integer  "accesscode"
     t.integer  "allowedcount"

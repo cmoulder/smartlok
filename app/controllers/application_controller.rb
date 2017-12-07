@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-
-  helper_method :schedule
+  protected
+  #require 'rpi_gpio'
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, :keys => [:email, :username, :password])
@@ -11,7 +11,24 @@ class ApplicationController < ActionController::Base
   end
 
   def unlock
-
+    # RPi::GPIO.set_numbering :board
+    #
+    # out1 = 16
+    # out2 = 18
+    #
+    # RPi::GPIO.setup out1, :as => :output
+    # RPi::GPIO.setup out2, :as => :output
+    #
+    # RPi::GPIO.set_high out1
+    # sleep(0.5)
+    # RPi::GPIO.set_low out1
+    # sleep(1.0)
+    #
+    # RPi::GPIO.set_high out2
+    # sleep(0.5)
+    # RPi::GPIO.set_low out2
+    #
+    # RPi::GPIO.clean_up
   end
 
   # function to write log entries
