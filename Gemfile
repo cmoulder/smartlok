@@ -5,7 +5,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "starter_generators", :git => "https://github.com/raghubetina/starter_generators"
+#No longer need these generators now that the site was created. This fails on rc.local during boot
+#gem "starter_generators", :git => "https://github.com/raghubetina/starter_generators"
+
 gem 'devise'
 gem 'bcrypt', platforms: :ruby
 # gem 'rpi_gpio'
