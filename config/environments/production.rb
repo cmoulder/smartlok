@@ -8,7 +8,7 @@ Rails.application.configure do
   user_name:            "your email",
   password:             "your password",
   authentication:       "login",
-  enable_starttls_auto: false,
+  enable_starttls_auto: true,
   openssl_verify_mode:  "none"
 }
     # Settings specified here will take precedence over those in config/application.rb.
@@ -34,7 +34,9 @@ Rails.application.configure do
     # config.assets.css_compressor = :sass
 
     # Do not fallback to assets pipeline if a precompiled asset is missed.
-    config.assets.compile = false
+    # Why on earth false is the default I have no idea. Otherwise you need to compile everything first by setting in config.assets.precompile =  ['*.js', '*.css', '*.css.erb'] in assets.rb and running RAILS_ENV=production bundle exec rake assets:precompile. So much for clear documentation.
+
+    config.assets.compile = true
 
     # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 

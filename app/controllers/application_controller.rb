@@ -16,9 +16,9 @@ class ApplicationController < ActionController::Base
     # out1 = 16
     # out2 = 18
     #
-    # RPi::GPIO.setup out1, :as => :output
-    # RPi::GPIO.setup out2, :as => :output
-    # 
+    # RPi::GPIO.setup out1, :as => :output, :initialize => :low
+    # RPi::GPIO.setup out2, :as => :output, :initialize => :low
+    #
     # RPi::GPIO.set_high out1
     # sleep(0.5)
     # RPi::GPIO.set_low out1

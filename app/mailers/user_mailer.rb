@@ -1,6 +1,7 @@
 class UserMailer < ApplicationMailer
-  default from: 'chrismoulder@drinkmorejava.com'
-  default reply_to: 'chrismoulder@drinkmorejava.com'
+
+  default from: User.first.email
+  default reply_to: User.first.email
 
   def access_granted(guest, setting)
     @guest = guest
