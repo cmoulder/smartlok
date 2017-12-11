@@ -34,7 +34,7 @@ Rails.application.configure do
     # config.assets.css_compressor = :sass
 
     # Do not fallback to assets pipeline if a precompiled asset is missed.
-    # Why on earth false is the default I have no idea. Otherwise you need to compile everything first by setting in config.assets.precompile =  ['*.js', '*.css', '*.css.erb'] in assets.rb and running RAILS_ENV=production bundle exec rake assets:precompile. So much for clear documentation.
+    # A little annoying here that true isn't the default. Otherwise you need to compile everything first by setting config.assets.precompile =  ['*.js', '*.css', '*.css.erb'] in assets.rb and running RAILS_ENV=production bundle exec rake assets:precompile just to get the site working.
 
     config.assets.compile = true
 

@@ -73,48 +73,48 @@
       </div>
 
 
-<!-- Expiry Date -->
+      <!-- Expiry Date -->
 
-<div class="row">
-  <div class='col-sm-12'>
-    <div class="form-group">
-      <label for="allowedcount" class="control-label">
-        Access Expiration Date (Leave blank for never)
-      </label>
-      <div class='input-group date' id='datetimepicker'>
-        <input type='text' class="form-control" id="expire" name="expire">
-        <span class="input-group-addon">
-          <span class="glyphicon glyphicon-calendar"></span>
-        </span>
+      <div class="row">
+        <div class='col-sm-12'>
+          <div class="form-group">
+            <label for="allowedcount" class="control-label">
+              Access Expiration Date (Leave blank for never)
+            </label>
+            <div class='input-group date' id='datetimepicker'>
+              <input type='text' class="form-control" id="expire" name="expire">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+        $(function () {
+          $('#datetimepicker').datetimepicker({
+            format: 'L'
+
+          });
+        });
+        </script>
       </div>
-    </div>
-  </div>
-  <script type="text/javascript">
-  $(function () {
-    $('#datetimepicker').datetimepicker({
-      format: 'L'
-
-    });
-  });
-  </script>
-</div>
 
 
-<!-- Label and input for notify -->
+      <!-- Label and input for notify -->
 
-<div class="checkbox">
-  <label for="notify">
-    <input type="checkbox" id="notify" name="notify" <%= "checked" if @guest.notify %>>
-    Email Admin When Access Attempted
-  </label>
-</div>
+      <div class="checkbox">
+        <label for="notify">
+          <input type="checkbox" id="notify" name="notify" <%= "checked" if @guest.notify %>>
+          Email Admin When Access Attempted
+        </label>
+      </div>
 
       <!-- Label and input for unrestricted -->
 
       <div class="checkbox">
         <label for="unrestricted">
           <input type="checkbox" id="unrestricted" name="unrestricted" <%= "checked" if @guest.unrestricted %>>
-          Unrestricted Schedule (Must check box if not creating a schedule)
+          <font color=red> Unrestricted Schedule (Must check box if not creating a schedule)</font>
         </label>
       </div>
 
