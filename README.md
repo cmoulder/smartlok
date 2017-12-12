@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Ruby on Rails based smart lock system designed for a Raspberry Pi, but it can be easily modified with a custom unlock method to work on any rails or door lock setup.
 
-Things you may want to cover:
+The feature set includes:
+* Anti-Brute force (lock after 5 invalid attempts). Unlock button available when logged in
+* Email notifications to the admin when a user attempts to entry
+* Email notification to new users with their code and entry restrictions
+* Geofencing
+* Entry scheduling
+* Access expiration date
+* Entry count limit
+* Logging for all attempted entries
 
-* Ruby version
+After installing, run rails db:seed to load some basic settings. The default login is admin:password
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This will be updated eventually. Until then, more info can be found at https://hackaday.io/project/27725-smartlok
